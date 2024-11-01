@@ -1,0 +1,35 @@
+@token = jwt_token
+@itemId = random_id
+@baseUrl = http://localhost:5000
+
+### Create a New Item (requires token)
+POST {{baseUrl}}/api/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Test Item",
+  "description": "This is a test item description."
+}
+
+### Get All Items (requires token)
+GET {{baseUrl}}/api/items
+Authorization: Bearer {{token}}
+
+### Get Item by ID (requires token)
+GET {{baseUrl}}/api/items/{{itemId}}
+Authorization: Bearer {{token}}
+
+### Update Item by ID (requires token)
+PUT {{baseUrl}}/api/items/{{itemId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Updated Test Item",
+  "description": "This is an updated test item description."
+}
+
+### Delete Item by ID (requires token)
+DELETE {{baseUrl}}/api/items/{{itemId}}
+Authorization: Bearer {{token}}
