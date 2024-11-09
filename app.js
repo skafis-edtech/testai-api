@@ -1,6 +1,8 @@
 const express = require("express");
 const testRoutes = require("./routes/testRoutes");
 const { authorize } = require("./firebaseConfig");
+const swaggerUi = require("swagger-ui-express");
+const swaggerFile = require("./swagger-output.json");
 const app = express();
 app.use(express.json());
 
@@ -12,12 +14,6 @@ app.use((req, res, next) => {
 });
 app.use("/test", authorize, testRoutes);
 
-const swaggerUi = require("swagger-ui-express");
-const swaggerSpec = require("./swaggerConfig");
-app.use("/swagger-ui", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.get("/api-docs", (req, res) => {
-  res.setHeader("Content-Type", "application/json");
-  res.send(swaggerSpec);
-});
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 module.exports = app;
